@@ -5,10 +5,16 @@ const MintNFT = () => {
   const [tokenURI, setTokenURI] = useState("");
 
   const mintNFT = async () => {
-    const web3 = await getWeb3();
-    const accounts = await web3.listAccounts();
-    const contract = await getContract(web3);
-    await contract.mint(accounts[0], tokenURI);
+    try {
+      const provider = await getWeb3();
+      const contract = await getContract(provider);
+      const accounts = await provider.listAccounts();
+      console.log("Minting NFT to account:", accounts[0]);
+      await contract.mint(accounts[0], tokenURI);
+      console.log("NFT minted successfully");
+    } catch (error) {
+      console.error("Error minting NFT:", error);
+    }
   };
 
   return (

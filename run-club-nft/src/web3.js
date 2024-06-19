@@ -1,35 +1,22 @@
-const { ethers } = require("ethers");
-const RunClubNFT = require("./contracts/RunClubNFT.json");
+import { ethers } from "ethers";
+import RunClubNFT from "./contracts/RunClubNFT.json";
 
 const getWeb3 = async () => {
-  if (window.ethereum) {
-    const web3 = new ethers.providers.Web3Provider(window.ethereum);
-    try {
-      await window.ethereum.request({ method: "eth_requestAccounts" });
-      return web3;
-    } catch (error) {
-      console.error("User denied account access");
-      throw error;
-    }
-  } else {
-    console.error(
-      "Non-Ethereum browser detected. You should consider trying MetaMask!"
-    );
-    throw new Error(
-      "Non-Ethereum browser detected. You should consider trying MetaMask!"
-    );
-  }
+  await window.ethereum.request({ method: "eth_requestAccounts" });
+  const provider = new ethers.BrowserProvider(window.ethereum);
+  return provider;
 };
 
-const getContract = async (web3) => {
-  const networkId = (await web3.getNetwork()).chainId;
+const getContract = async (provider) => {
+  const networkId = 11155111; // Base Sepolia Testnet Chain ID
   const deployedNetwork = RunClubNFT.networks[networkId];
+  const signer = await provider.getSigner();
   const contract = new ethers.Contract(
     deployedNetwork.address,
     RunClubNFT.abi,
-    web3.getSigner()
+    signer
   );
   return contract;
 };
 
-module.exports = { getWeb3, getContract };
+export { getWeb3, getContract };
