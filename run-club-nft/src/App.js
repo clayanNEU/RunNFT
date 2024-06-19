@@ -1,25 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import MintNFT from "./MintNFT";
+import deployContract from "./deploy";
 
-function App() {
+const App = () => {
+  const deploy = async () => {
+    const address = await deployContract();
+    console.log("Deployed contract address:", address);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Run Club NFT Minting</h1>
+      <button onClick={deploy}>Deploy Contract</button>
+      <MintNFT />
     </div>
   );
-}
+};
 
 export default App;

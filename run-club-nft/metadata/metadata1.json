@@ -1,0 +1,27 @@
+{
+  "name": "Run Club Achievement",
+  "description": "An NFT representing an achievement in the Run Club.",
+  "image": "https://gateway.pinata.cloud/ipfs/QmekQECwQVnU3jhapSMjZZ8FoGyysxxVC6HbgYBErXs3pi",
+  "attributes": [
+    {
+      "trait_type": "Achievement",
+      "value": "Nike Run Completion"
+    },
+    {
+      "trait_type": "Date",
+      "value": "2024-06-05"
+    },
+    {
+      "trait_type": "Location",
+      "value": "Austin"
+    },
+    {
+      "trait_type": "Finish Time",
+      "value": "49m"
+    },
+    {
+      "trait_type": "Distance",
+      "value": "3.2 mi"
+    }
+  ]
+}
