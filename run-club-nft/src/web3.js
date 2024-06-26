@@ -1,3 +1,4 @@
+// src/web3.js
 import { ethers } from "ethers";
 import RunClubNFT from "./contracts/RunClubNFT.json";
 
@@ -8,8 +9,11 @@ const getWeb3 = async () => {
 };
 
 const getContract = async (provider) => {
-  const networkId = 11155111; // Base Sepolia Testnet Chain ID
-  const deployedNetwork = RunClubNFT.networks[networkId];
+  const network = await provider.getNetwork();
+  const deployedNetwork = RunClubNFT.networks["base-mainnet"];
+  if (!deployedNetwork) {
+    throw new Error(`No deployed network found for Base Mainnet`);
+  }
   const signer = await provider.getSigner();
   const contract = new ethers.Contract(
     deployedNetwork.address,

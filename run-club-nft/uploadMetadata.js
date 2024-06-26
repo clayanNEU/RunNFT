@@ -26,4 +26,4 @@ const uploadJSONToPinata = async (filePath) => {
   }
 };
 
-uploadJSONToPinata("metadata/metadata1.json");
+uploadJSONToPinata("metadata/run-it-back.json");

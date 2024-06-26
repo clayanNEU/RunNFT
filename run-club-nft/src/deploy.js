@@ -1,5 +1,11 @@
 const { ethers } = require("ethers");
-const RunClubNFT = require("./contracts/RunClubNFT.json");
+const fs = require("fs");
+const path = require("path");
+require("dotenv").config();
+
+const RunClubNFT = JSON.parse(
+  fs.readFileSync(path.resolve(__dirname, "./contracts/RunClubNFT.json"))
+);
 
 const deployContract = async () => {
   if (!window.ethereum) {
@@ -7,30 +13,27 @@ const deployContract = async () => {
     return;
   }
 
-  try {
-    await window.ethereum.request({ method: "eth_requestAccounts" });
-    console.log("MetaMask account access granted");
+  // Request account access if needed
+  await window.ethereum.request({ method: "eth_requestAccounts" });
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const signer = provider.getSigner();
 
-    const provider = new ethers.BrowserProvider(window.ethereum);
-    const signer = await provider.getSigner();
+  console.log("Deploying the contract...");
 
-    console.log("Account:", await signer.getAddress());
+  const factory = new ethers.ContractFactory(
+    RunClubNFT.abi,
+    RunClubNFT.bytecode,
+    signer
+  );
+  const contract = await factory.deploy();
 
-    console.log("Deploying the contract...");
-    const factory = new ethers.ContractFactory(
-      RunClubNFT.abi,
-      RunClubNFT.bytecode,
-      signer
-    );
-    const contract = await factory.deploy(await signer.getAddress());
+  console.log("Waiting for the contract to be mined...");
+  await contract.deployTransaction.wait();
 
-    await contract.deploymentTransaction().wait();
-
-    console.log("Contract deployed at address:", contract.target);
-    return contract.target;
-  } catch (error) {
-    console.error("Error deploying contract:", error);
-  }
+  console.log("Contract deployed at:", contract.address);
+  return contract.address;
 };
 
-module.exports = deployContract;
+deployContract().catch((error) => {
+  console.error("Error deploying contract:", error);
+});

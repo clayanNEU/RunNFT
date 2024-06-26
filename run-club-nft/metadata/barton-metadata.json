@@ -1,0 +1,27 @@
+{
+  "name": "Cooldown Run at Barton Springs",
+  "description": "Taking in the Austin skyline past Barton Springs",
+  "image": "https://gateway.pinata.cloud/ipfs/QmXAmLZgjWszoMfRhkAtFnDHYsLupHiN4tjcH19Ype8SNy",
+  "attributes": [
+    {
+      "trait_type": "Achievement",
+      "value": "Cooldown Run Completion"
+    },
+    {
+      "trait_type": "Date",
+      "value": "2024-06-12"
+    },
+    {
+      "trait_type": "Location",
+      "value": "Austin"
+    },
+    {
+      "trait_type": "Finish Time",
+      "value": "35m 45s"
+    },
+    {
+      "trait_type": "Distance",
+      "value": "3.14 mi"
+    }
+  ]
+}

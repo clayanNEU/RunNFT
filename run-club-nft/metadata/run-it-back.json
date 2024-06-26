@@ -1,0 +1,27 @@
+{
+  "name": "Run It Back",
+  "description": "Flyer to mobilize the community out!",
+  "image": "https://gateway.pinata.cloud/ipfs/QmebRNSAHuu82QgLvtvL6ZnxJQzJu1kerLBkk2Ex1u8DxS",
+  "attributes": [
+    {
+      "trait_type": "Event",
+      "value": "Run It Back 5k"
+    },
+    {
+      "trait_type": "Date",
+      "value": "2024-06-24"
+    },
+    {
+      "trait_type": "Location",
+      "value": "Austin"
+    },
+    {
+      "trait_type": "Meeting",
+      "value": "2nd meet!"
+    },
+    {
+      "trait_type": "Distance",
+      "value": "5k"
+    }
+  ]
+}
