@@ -1,4 +1,3 @@
-// src/web3.js
 import { ethers } from "ethers";
 import RunClubNFT from "./contracts/RunClubNFT.json";
 

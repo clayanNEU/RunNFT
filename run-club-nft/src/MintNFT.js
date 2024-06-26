@@ -1,4 +1,3 @@
-// src/MintNFT.js
 import React, { useState } from "react";
 import { getWeb3, getContract } from "./web3";
 import axios from "axios";
@@ -7,6 +6,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 const MintNFT = () => {
   const [file, setFile] = useState(null);
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
   const [traits, setTraits] = useState([{ trait_type: "", value: "" }]);
   const [status, setStatus] = useState("");
 
@@ -53,8 +54,8 @@ const MintNFT = () => {
 
   const handleMetadataUpload = async (imageURI) => {
     const metadata = {
-      name: "Run It Back",
-      description: "Flyer to mobilize the community out!",
+      name: name,
+      description: description,
       image: imageURI,
       attributes: traits,
     };
@@ -125,6 +126,23 @@ const MintNFT = () => {
             </div>
           )}
         </Dropzone>
+      </div>
+      <div className="mb-3">
+        <input
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="NFT Name"
+          className="form-control"
+        />
+      </div>
+      <div className="mb-3">
+        <textarea
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          placeholder="NFT Description"
+          className="form-control"
+        />
       </div>
       <div className="mb-3">
         {traits.map((trait, index) => (
