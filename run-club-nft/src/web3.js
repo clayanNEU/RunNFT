@@ -8,7 +8,7 @@ const getWeb3 = async () => {
 };
 
 const getContract = async (provider) => {
-  const network = await provider.getNetwork();
+  // const network = await provider.getNetwork();
   const deployedNetwork = RunClubNFT.networks["base-mainnet"];
   if (!deployedNetwork) {
     throw new Error(`No deployed network found for Base Mainnet`);
