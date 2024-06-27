@@ -2,17 +2,22 @@ import React, { useState } from "react";
 import { getWeb3, getContract } from "./web3";
 import axios from "axios";
 import Dropzone from "react-dropzone";
+import { Modal, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const MintNFT = () => {
   const [file, setFile] = useState(null);
+  const [preview, setPreview] = useState(null);
+  const [traits, setTraits] = useState([{ trait_type: "", value: "" }]);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [traits, setTraits] = useState([{ trait_type: "", value: "" }]);
   const [status, setStatus] = useState("");
+  const [showModal, setShowModal] = useState(false);
 
   const handleFileDrop = (acceptedFiles) => {
-    setFile(acceptedFiles[0]);
+    const uploadedFile = acceptedFiles[0];
+    setFile(uploadedFile);
+    setPreview(URL.createObjectURL(uploadedFile));
   };
 
   const handleAddTrait = () => {
@@ -49,13 +54,14 @@ const MintNFT = () => {
     } catch (error) {
       console.error("Error uploading file:", error);
       setStatus("Error uploading file to IPFS");
+      setShowModal(true);
     }
   };
 
   const handleMetadataUpload = async (imageURI) => {
     const metadata = {
-      name: name,
-      description: description,
+      name,
+      description,
       image: imageURI,
       attributes: traits,
     };
@@ -74,16 +80,19 @@ const MintNFT = () => {
     } catch (error) {
       console.error("Error uploading metadata:", error);
       setStatus("Error uploading metadata to IPFS");
+      setShowModal(true);
     }
   };
 
   const mintNFT = async () => {
     try {
       setStatus("Uploading file to IPFS...");
+      setShowModal(true);
       const imageURI = await handleFileUpload();
 
       if (!imageURI) {
         setStatus("Failed to upload image");
+        setShowModal(true);
         return;
       }
 
@@ -92,6 +101,7 @@ const MintNFT = () => {
 
       if (!metadataURI) {
         setStatus("Failed to upload metadata");
+        setShowModal(true);
         return;
       }
 
@@ -104,9 +114,11 @@ const MintNFT = () => {
 
       await contract.mint(address, metadataURI);
       setStatus("NFT minted successfully");
+      setShowModal(true);
     } catch (error) {
       console.error("Error minting NFT:", error);
       setStatus("Error minting NFT");
+      setShowModal(true);
     }
   };
 
@@ -126,13 +138,18 @@ const MintNFT = () => {
             </div>
           )}
         </Dropzone>
+        {preview && (
+          <div className="mt-2">
+            <img src={preview} alt="Preview" className="img-thumbnail" />
+          </div>
+        )}
       </div>
       <div className="mb-3">
         <input
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          placeholder="NFT Name"
+          placeholder="Name"
           className="form-control"
         />
       </div>
@@ -140,7 +157,7 @@ const MintNFT = () => {
         <textarea
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          placeholder="NFT Description"
+          placeholder="Description"
           className="form-control"
         />
       </div>
@@ -174,7 +191,19 @@ const MintNFT = () => {
       <button onClick={mintNFT} className="btn btn-success">
         Mint NFT
       </button>
-      <p>{status}</p>
+
+      {/* Modal for status messages */}
+      <Modal show={showModal} onHide={() => setShowModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Status</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>{status}</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowModal(false)}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };
