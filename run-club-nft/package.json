@@ -2,6 +2,7 @@
   "name": "run-club-nft",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://clayanNEU.github.io/RunNFT",
   "dependencies": {
     "@openzeppelin/contracts": "^5.0.2",
     "@testing-library/jest-dom": "^5.17.0",
@@ -24,7 +25,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
