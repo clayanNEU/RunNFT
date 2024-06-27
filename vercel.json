@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "run-club-nft/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "run-club-nft/build"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/run-club-nft/build/index.html"
+    }
+  ]
+}
