@@ -12,7 +12,7 @@
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/run-club-nft/build/index.html"
+      "dest": "run-club-nft/build/$1"
     }
   ]
 }
