@@ -1,0 +1,76 @@
+/* src/MintNFT.css */
+
+body {
+  background: linear-gradient(to right, #000428, #004e92);
+  color: #ffffff;
+  font-family: "Arial", sans-serif;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  background: rgba(0, 0, 0, 0.7);
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+  max-width: 600px;
+  width: 100%;
+  margin-top: 50px;
+}
+
+h2 {
+  color: #ffffff;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.dropzone {
+  border: 2px dashed #007bff;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.dropzone p {
+  margin: 0;
+  color: #ffffff;
+}
+
+.img-thumbnail {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+.form-control {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid #007bff;
+  color: #ffffff;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.btn-success {
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+.btn-primary:hover,
+.btn-success:hover {
+  opacity: 0.8;
+}
+
+.alert {
+  background: rgba(0, 0, 0, 0.8);
+  color: #ffffff;
+  border-radius: 10px;
+  padding: 15px;
+  text-align: center;
+}

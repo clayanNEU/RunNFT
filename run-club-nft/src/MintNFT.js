@@ -1,23 +1,23 @@
+// src/MintNFT.js
 import React, { useState } from "react";
 import { getWeb3, getContract } from "./web3";
 import axios from "axios";
 import Dropzone from "react-dropzone";
-import { Modal, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./MintNFT.css";
 
 const MintNFT = () => {
   const [file, setFile] = useState(null);
-  const [preview, setPreview] = useState(null);
   const [traits, setTraits] = useState([{ trait_type: "", value: "" }]);
+  const [status, setStatus] = useState("");
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [status, setStatus] = useState("");
-  const [showModal, setShowModal] = useState(false);
+  const [imagePreview, setImagePreview] = useState(null);
 
   const handleFileDrop = (acceptedFiles) => {
     const uploadedFile = acceptedFiles[0];
     setFile(uploadedFile);
-    setPreview(URL.createObjectURL(uploadedFile));
+    setImagePreview(URL.createObjectURL(uploadedFile));
   };
 
   const handleAddTrait = () => {
@@ -54,14 +54,13 @@ const MintNFT = () => {
     } catch (error) {
       console.error("Error uploading file:", error);
       setStatus("Error uploading file to IPFS");
-      setShowModal(true);
     }
   };
 
   const handleMetadataUpload = async (imageURI) => {
     const metadata = {
-      name,
-      description,
+      name: name,
+      description: description,
       image: imageURI,
       attributes: traits,
     };
@@ -80,19 +79,16 @@ const MintNFT = () => {
     } catch (error) {
       console.error("Error uploading metadata:", error);
       setStatus("Error uploading metadata to IPFS");
-      setShowModal(true);
     }
   };
 
   const mintNFT = async () => {
     try {
       setStatus("Uploading file to IPFS...");
-      setShowModal(true);
       const imageURI = await handleFileUpload();
 
       if (!imageURI) {
         setStatus("Failed to upload image");
-        setShowModal(true);
         return;
       }
 
@@ -101,7 +97,6 @@ const MintNFT = () => {
 
       if (!metadataURI) {
         setStatus("Failed to upload metadata");
-        setShowModal(true);
         return;
       }
 
@@ -113,18 +108,16 @@ const MintNFT = () => {
       const contract = await getContract(web3);
 
       await contract.mint(address, metadataURI);
-      setStatus("NFT minted successfully");
-      setShowModal(true);
+      setStatus("NFT minted successfully!");
     } catch (error) {
       console.error("Error minting NFT:", error);
       setStatus("Error minting NFT");
-      setShowModal(true);
     }
   };
 
   return (
     <div className="container">
-      <h2>Mint Run Club NFT</h2>
+      <h2 className="mt-5">Mint Run Club NFT</h2>
       <div className="mb-3">
         <Dropzone onDrop={handleFileDrop}>
           {({ getRootProps, getInputProps }) => (
@@ -138,9 +131,9 @@ const MintNFT = () => {
             </div>
           )}
         </Dropzone>
-        {preview && (
-          <div className="mt-2">
-            <img src={preview} alt="Preview" className="img-thumbnail" />
+        {imagePreview && (
+          <div className="mt-3">
+            <img src={imagePreview} alt="Preview" className="img-thumbnail" />
           </div>
         )}
       </div>
@@ -150,15 +143,13 @@ const MintNFT = () => {
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="Name"
-          className="form-control"
+          className="form-control mb-2"
         />
-      </div>
-      <div className="mb-3">
         <textarea
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           placeholder="Description"
-          className="form-control"
+          className="form-control mb-2"
         />
       </div>
       <div className="mb-3">
@@ -171,7 +162,7 @@ const MintNFT = () => {
                 handleTraitChange(index, "trait_type", e.target.value)
               }
               placeholder="Trait Type"
-              className="form-control"
+              className="form-control mb-2"
             />
             <input
               type="text"
@@ -180,7 +171,7 @@ const MintNFT = () => {
                 handleTraitChange(index, "value", e.target.value)
               }
               placeholder="Trait Value"
-              className="form-control"
+              className="form-control mb-2"
             />
           </div>
         ))}
@@ -191,19 +182,7 @@ const MintNFT = () => {
       <button onClick={mintNFT} className="btn btn-success">
         Mint NFT
       </button>
-
-      {/* Modal for status messages */}
-      <Modal show={showModal} onHide={() => setShowModal(false)}>
-        <Modal.Header closeButton>
-          <Modal.Title>Status</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>{status}</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowModal(false)}>
-            Close
-          </Button>
-        </Modal.Footer>
-      </Modal>
+      {status && <div className="alert alert-info mt-3">{status}</div>}
     </div>
   );
 };
