@@ -179,10 +179,24 @@ const MintNFT = () => {
           Add Trait
         </button>
       </div>
-      <button onClick={mintNFT} className="btn btn-success">
-        Mint NFT
-      </button>
-      {status && <div className="alert alert-info mt-3">{status}</div>}
+      <div className="text-center">
+        <button onClick={mintNFT} className="btn btn-success">
+          Mint NFT
+        </button>
+      </div>
+      {status && (
+        <div className="alert alert-info mt-3 text-center" role="alert">
+          {status}
+        </div>
+      )}
+      <div className="text-center mt-4">
+        <a
+          href="https://calm-taurus-8a2.notion.site/Guide-to-use-ff54617aecc5413590b9ef84c2bf6ff1"
+          className="btn btn-info"
+        >
+          How to use
+        </a>
+      </div>
     </div>
   );
 };
