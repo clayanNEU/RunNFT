@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/RunNFT/static/css/main.75ff5c26.css",
-    "main.js": "/RunNFT/static/js/main.10d3e6e7.js",
+    "main.css": "/RunNFT/static/css/main.b2164d71.css",
+    "main.js": "/RunNFT/static/js/main.287c6c76.js",
     "static/js/453.92a8cb97.chunk.js": "/RunNFT/static/js/453.92a8cb97.chunk.js",
     "index.html": "/RunNFT/index.html",
-    "main.75ff5c26.css.map": "/RunNFT/static/css/main.75ff5c26.css.map",
-    "main.10d3e6e7.js.map": "/RunNFT/static/js/main.10d3e6e7.js.map",
+    "main.b2164d71.css.map": "/RunNFT/static/css/main.b2164d71.css.map",
+    "main.287c6c76.js.map": "/RunNFT/static/js/main.287c6c76.js.map",
     "453.92a8cb97.chunk.js.map": "/RunNFT/static/js/453.92a8cb97.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.75ff5c26.css",
-    "static/js/main.10d3e6e7.js"
+    "static/css/main.b2164d71.css",
+    "static/js/main.287c6c76.js"
   ]
 }

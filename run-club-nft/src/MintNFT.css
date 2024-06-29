@@ -1,8 +1,8 @@
 /* src/MintNFT.css */
 
 body {
-  background: linear-gradient(to right, #000428, #004e92);
-  color: #ffffff;
+  background: linear-gradient(to right, #818ca0, #ea8253);
+  color: #bdd0c1;
   font-family: "Arial", sans-serif;
   min-height: 100vh;
   display: flex;
@@ -21,13 +21,14 @@ body {
 }
 
 h2 {
-  color: #ffffff;
+  color: #bdd0c1;
+  font-weight: bold;
   text-align: center;
   margin-bottom: 30px;
 }
 
 .dropzone {
-  border: 2px dashed #007bff;
+  border: 2px dashed #bdd0c1;
   padding: 20px;
   text-align: center;
   cursor: pointer;
@@ -36,7 +37,7 @@ h2 {
 
 .dropzone p {
   margin: 0;
-  color: #ffffff;
+  color: #bdd0c1;
 }
 
 .img-thumbnail {
@@ -48,8 +49,8 @@ h2 {
 
 .form-control {
   background: rgba(255, 255, 255, 0.1);
-  border: 1px solid #007bff;
-  color: #ffffff;
+  border: 1px solid #bdd0c1;
+  color: #bdd0c1;
 }
 
 .btn-primary {
@@ -69,8 +70,54 @@ h2 {
 
 .alert {
   background: rgba(0, 0, 0, 0.8);
-  color: #ffffff;
+  color: #bdd0c1;
   border-radius: 10px;
   padding: 15px;
   text-align: center;
+}
+
+.dropzone {
+  border: 2px dashed #007bff;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.upload-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.upload-icon p {
+  margin-top: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #007bff;
+}
+
+.img-thumbnail {
+  max-width: 200px;
+  max-height: 200px;
+}
+
+button {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.btn-success {
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+.alert {
+  text-align: center;
+  font-size: 1.2em;
 }

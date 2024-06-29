@@ -5,6 +5,8 @@ import axios from "axios";
 import Dropzone from "react-dropzone";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./MintNFT.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUpload } from "@fortawesome/free-solid-svg-icons";
 
 const MintNFT = () => {
   const [file, setFile] = useState(null);
@@ -13,6 +15,7 @@ const MintNFT = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [imagePreview, setImagePreview] = useState(null);
+  const [nftType, setNftType] = useState("");
 
   const handleFileDrop = (acceptedFiles) => {
     const uploadedFile = acceptedFiles[0];
@@ -115,14 +118,42 @@ const MintNFT = () => {
     }
   };
 
+  const handleNftTypeChange = (event) => {
+    setNftType(event.target.value);
+    if (event.target.value === "achievement") {
+      setTraits([{ trait_type: "Distance", value: "" }]);
+    } else if (event.target.value === "membership") {
+      setTraits([{ trait_type: "Member Name", value: "" }]);
+    } else {
+      setTraits([{ trait_type: "", value: "" }]);
+    }
+  };
+
   return (
     <div className="container">
       <h2 className="mt-5">Mint Run Club NFT</h2>
+      <div className="mb-3">
+        <label htmlFor="nftType">Select NFT Type:</label>
+        <select
+          id="nftType"
+          className="form-select"
+          value={nftType}
+          onChange={handleNftTypeChange}
+        >
+          <option value="">Select Type</option>
+          <option value="achievement">Achievement NFT</option>
+          <option value="membership">Membership NFT</option>
+        </select>
+      </div>
       <div className="mb-3">
         <Dropzone onDrop={handleFileDrop}>
           {({ getRootProps, getInputProps }) => (
             <div {...getRootProps({ className: "dropzone" })}>
               <input {...getInputProps()} />
+              <div className="upload-icon">
+                <FontAwesomeIcon icon={faUpload} size="3x" />
+                <p>Upload File</p>
+              </div>
               {file ? (
                 <p>{file.name}</p>
               ) : (
@@ -179,24 +210,12 @@ const MintNFT = () => {
           Add Trait
         </button>
       </div>
-      <div className="text-center">
+      <div className="d-flex justify-content-center">
         <button onClick={mintNFT} className="btn btn-success">
           Mint NFT
         </button>
       </div>
-      {status && (
-        <div className="alert alert-info mt-3 text-center" role="alert">
-          {status}
-        </div>
-      )}
-      <div className="text-center mt-4">
-        <a
-          href="https://calm-taurus-8a2.notion.site/Guide-to-use-ff54617aecc5413590b9ef84c2bf6ff1"
-          className="btn btn-info"
-        >
-          How to use
-        </a>
-      </div>
+      {status && <div className="alert alert-info mt-3">{status}</div>}
     </div>
   );
 };
